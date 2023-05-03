@@ -1,8 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const functions = require('./functions');
+
 const port = 3000;
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
@@ -21,8 +25,10 @@ app.get('/line', (req, res) => {
     res.sendFile(__dirname + '/public/line.html');
 });
 
-app.get('/chartdata', (req, res) => {
-
+app.post('/image', (req, res) => {
+    // console.log(req.body);
+    let chart = functions.chart(req.body.type, req.body.values);
+    res.send(chart);
 });
 
 app.listen(port, () => {
