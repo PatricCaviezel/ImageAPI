@@ -1,5 +1,8 @@
-bar <- function(x, y, title, xtitle, ytitle, color) {
-    barplot(x, main = title, xlab = xtitle, ylab = ytitle, col = color)
+bar <- function(data) {
+    png("Image.png")
+    cat(data)
+    barplot(data.x, main = data.title, xlab = data.xtitle, ylab = data.ytitle, col = data.color)
+    dev.off()
 }
 
 line <- function(x, y, color, title, xtitle, ytitle) {
