@@ -12,8 +12,31 @@ let check = () => {
     let elements = div.querySelectorAll("input");
     for (let i = 0; i < elements.length; i++) {
         if (elements[i].value == "") return;
-        values[elements[i].id] = elements[i].value;
+        if (elements[i].value.includes(",")) {
+            values[elements[i].id] = elements[i].value.split(",");
+            console.log(values[elements[i].id]);
+            // for (let j = 0; j < values[elements[i].id].length; j++) {
+            //     if (!isNaN(parseInt(values[elements[i].id][j]))) {
+            //         values[elements[i].id][j] = parseInt(values[elements[i].id][j]);
+            //     } else {
+            //         values[elements[i].id][j] = values[elements[i].id][j];
+            //     }
+            // }
+            console.log(values[elements[i].id]);
+        }
+        if (!isNaN(parseInt(elements[i].value))) {
+            values[elements[i].id] = parseInt(elements[i].value)
+        } else {
+            values[elements[i].id] = elements[i].value;
+        }
     }
     data.values = values;
     console.log(data);
+    fetch('http://localhost:3000/image', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': "application/json"
+        }
+    });
 }
