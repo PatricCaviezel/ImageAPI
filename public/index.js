@@ -14,15 +14,15 @@ let check = () => {
         if (elements[i].value == "") return;
         if (elements[i].value.includes(",")) {
             values[elements[i].id] = elements[i].value.split(",");
-            console.log(values[elements[i].id]);
-            // for (let j = 0; j < values[elements[i].id].length; j++) {
-            //     if (!isNaN(parseInt(values[elements[i].id][j]))) {
-            //         values[elements[i].id][j] = parseInt(values[elements[i].id][j]);
-            //     } else {
-            //         values[elements[i].id][j] = values[elements[i].id][j];
-            //     }
-            // }
-            console.log(values[elements[i].id]);
+            for (let j = 0; j < values[elements[i].id].length; j++) {
+                if (!isNaN(parseInt(values[elements[i].id]))) {
+                values[elements[i].id][j] = parseInt(values[elements[i].id][j])
+            } else {
+                values[elements[i].id][j] = values[elements[i].id][j];
+            }
+            }
+            
+            continue;
         }
         if (!isNaN(parseInt(elements[i].value))) {
             values[elements[i].id] = parseInt(elements[i].value)
@@ -31,7 +31,6 @@ let check = () => {
         }
     }
     data.values = values;
-    console.log(data);
     fetch('http://localhost:3000/image', {
         method: "POST",
         body: JSON.stringify(data),
