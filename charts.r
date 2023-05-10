@@ -1,10 +1,10 @@
-bar <- function(x, title, xtitle, ytitle, color) {
+barchart <- function(x, title, xtitle, ytitle, color) {
     png("Image.png")
     barplot(x, main = title, xlab = xtitle, ylab = ytitle, col = color)
     dev.off()
 }
 
-line <- function(x, y, color, title, xtitle, ytitle) {
+linechart <- function(x, y, color, title, xtitle, ytitle) {
     plot(x, y, col = color, type = "l", main = title, xlab = xtitle, ylab = ytitle)
 }
 

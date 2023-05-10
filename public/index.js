@@ -7,7 +7,7 @@ let select = () => {
 let check = () => {
     let data = {}
     let values = {};
-    data.type = (window.location.toString()).split("/").pop();
+    data.type = (window.location.toString()).split("/").pop()+"chart";
     let div = document.getElementById("data");
     let elements = div.querySelectorAll("input");
     for (let i = 0; i < elements.length; i++) {
@@ -21,7 +21,6 @@ let check = () => {
                 values[elements[i].id][j] = values[elements[i].id][j];
             }
             }
-            
             continue;
         }
         if (!isNaN(parseInt(elements[i].value))) {
