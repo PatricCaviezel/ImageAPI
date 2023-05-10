@@ -4,7 +4,7 @@ let select = () => {
     window.location = window.location + selected;
 }
 
-let check = async () => {
+let check = () => {
     let data = {}
     let values = {};
     data.type = (window.location.toString()).split("/").pop()+"chart";
@@ -30,12 +30,11 @@ let check = async () => {
         }
     }
     data.values = values;
-    let res = await fetch('http://localhost:3000/image', {
+    fetch('http://localhost:3000/image', {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
             'Content-Type': "application/json"
         }
     });
-    console.log(res);
 }
