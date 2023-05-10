@@ -1,8 +1,19 @@
 const R = require('r-integration');
 
-exports.chart = (functionName, data) => {
+exports.bar = (functionName, data) => {
     R.callMethod('./charts.r', functionName, {
         x: data.x,
+        title: data.title,
+        xtitle: data.xtitle,
+        ytitle: data.ytitle,
+        color: data.color
+    });
+}
+
+exports.line = (functionName, data) => {
+    R.callMethod('./charts.r', functionName, {
+        x: data.x,
+        y: data.y,
         title: data.title,
         xtitle: data.xtitle,
         ytitle: data.ytitle,

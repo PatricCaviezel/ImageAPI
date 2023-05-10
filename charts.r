@@ -5,7 +5,9 @@ barchart <- function(x, title, xtitle, ytitle, color) {
 }
 
 linechart <- function(x, y, color, title, xtitle, ytitle) {
+    png("Image.png")
     plot(x, y, col = color, type = "l", main = title, xlab = xtitle, ylab = ytitle)
+    dev.off()
 }
 
 piechart <- function(slices, title, color) {

@@ -26,9 +26,24 @@ app.get('/line', (req, res) => {
 });
 
 app.post('/image', (req, res) => {
-    // console.log(req.body);
-    let chart = functions.chart(req.body.type, req.body.values);
-    res.send(chart);
+    switch (req.body.type) {
+        case "barchart":
+            let bar = functions.bar(req.body.type, req.body.values);
+            res.send(bar);
+            break;
+        case "linechart":
+            let line = functions.line(req.body.type, req.body.values);
+            res.send(line);
+            break;
+        case "piechart":
+            let pie = functions.bar(req.body.type, req.body.values);
+            res.send(pie);
+            break;
+        default:
+            res.status(400).send("Something went wrong!")
+            break;
+    }
+    
 });
 
 app.listen(port, () => {
