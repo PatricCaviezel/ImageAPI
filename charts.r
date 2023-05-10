@@ -10,6 +10,8 @@ linechart <- function(x, y, color, title, xtitle, ytitle) {
     dev.off()
 }
 
-piechart <- function(slices, title, color) {
-    pie(slices, col = color, main = title)
+piechart <- function(x, title, color, xtitle="xtitle", ytitle="ytitle") {
+    png("Image.png")
+    pie(x, col = color, main = title)
+    dev.off()
 }

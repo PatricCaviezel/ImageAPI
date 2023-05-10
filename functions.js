@@ -20,3 +20,12 @@ exports.line = (functionName, data) => {
         color: data.color
     });
 }
+
+exports.pie = (functionName, data) => {
+    console.log(data.slices);
+    R.callMethod('./charts,r', functionName, {
+        x: data.x,
+        title: data.title,
+        color: data.color
+    });
+}

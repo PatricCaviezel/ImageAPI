@@ -30,6 +30,8 @@ let check = () => {
         }
     }
     data.values = values;
+    console.log(data.values);
+    console.log(data.type);
     fetch('http://localhost:3000/image', {
         method: "POST",
         body: JSON.stringify(data),
