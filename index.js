@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require("fs");
 const functions = require('./functions');
 
 const port = 3000;
@@ -28,22 +29,40 @@ app.get('/line', (req, res) => {
 app.post('/image', (req, res) => {
     switch (req.body.type) {
         case "barchart":
-            let bar = functions.bar(req.body.type, req.body.values);
-            res.send(bar);
+            functions.bar(req.body.type, req.body.values);
             break;
         case "linechart":
-            let line = functions.line(req.body.type, req.body.values);
-            res.send(line);
+            functions.line(req.body.type, req.body.values);
             break;
         case "piechart":
-            let pie = functions.bar(req.body.type, req.body.values);
-            res.send(pie);
+            functions.bar(req.body.type, req.body.values);
             break;
         default:
             res.status(400).send("Something went wrong!")
             break;
     }
-    
+
+    const filePath = 'C:/Workspace/node.js/ImageAPI/Image.png';
+
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+        return;
+        }
+
+        let base64Image = Buffer.from(data).toString('base64');
+        let imgSrc = `data:image/png;base64,${base64Image}`;
+        let returnData = {src: imgSrc}
+        res.send(returnData);
+
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error('Error deleting file:', err);
+            } else {
+                console.log('File deleted successfully.');
+            }
+        });
+    });
 });
 
 app.listen(port, () => {
