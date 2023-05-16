@@ -1,4 +1,5 @@
 const express = require('express');
+const { exec } = require('child_process');
 const bodyParser = require('body-parser');
 const fs = require("fs");
 const functions = require('./functions');
@@ -62,6 +63,21 @@ app.post('/image', (req, res) => {
                 console.log('File deleted successfully.');
             }
         });
+    });
+});
+
+app.post('/write', (req, res) => {
+    const rubyScript = 'C:/Workspace/node.js/ImageAPI/main.rb';
+
+    const jsonData = JSON.stringify(req.body);
+    const command = `ruby ${rubyScript} '${jsonData}'`;
+
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            res.send(`Error executing Ruby script: ${error}`);
+            return;
+        }
+        res.send(`Ruby script output: ${stdout}`);
     });
 });
 
