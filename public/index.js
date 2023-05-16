@@ -40,7 +40,11 @@ let check = async () => {
     returnData = await returnData.json()
     let diagram = document.getElementById('diagram');
     diagram.src = returnData.src;
-    let json = {"buffer": returnData.src}
+    let json = {
+        "name": document.getElementById("title").value,
+        "timestamp": new Date,
+        "buffer": returnData.src
+    }
     await fetch('http://localhost:3000/write', {
         method: 'POST',
         headers: {
