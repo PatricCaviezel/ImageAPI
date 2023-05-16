@@ -27,7 +27,7 @@ npm install
 bundle install
 ```
 
-After installing all modules and gems with the previous commands use this command to start the app for production:
+After installing all modules and gems with the previous commands use this command to start the app (Make sure to be in the root folder /ImageAPI). For production:
 
 ```powershell
 node .
