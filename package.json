@@ -1,16 +1,19 @@
 {
-  "name": "imageapi",
+  "name": "ImageAPI",
   "version": "1.0.0",
-  "description": "",
+  "description": "An API that generates an Imagebuffer of a diagram that was generated using R. The buffer then is saved in a json file with the specified title and a timestamp.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "node .",
+    "dev": "nodemon ."
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Patric Caviezel",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
+    "nodemon": "^2.0.22",
     "r-integration": "^2.4.0"
   }
 }
