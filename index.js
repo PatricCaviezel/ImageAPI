@@ -1,5 +1,7 @@
 const express = require('express');
-const { exec } = require('child_process');
+const {
+    exec
+} = require('child_process');
 const bodyParser = require('body-parser');
 const fs = require("fs");
 const functions = require('./functions');
@@ -48,12 +50,14 @@ app.post('/image', (req, res) => {
     fs.readFile(filePath, (err, data) => {
         if (err) {
             console.error('Error reading file:', err);
-        return;
+            return;
         }
 
         let base64Image = Buffer.from(data).toString('base64');
         let imgSrc = `data:image/png;base64,${base64Image}`;
-        let returnData = {src: imgSrc}
+        let returnData = {
+            src: imgSrc
+        }
         res.send(returnData);
 
         fs.unlink(filePath, (err) => {

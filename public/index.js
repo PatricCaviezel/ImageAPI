@@ -4,32 +4,13 @@ let select = () => {
     window.location = window.location + selected;
 }
 
-let check = async () => {
-    let data = {}
-    let values = {};
-    data.type = (window.location.toString()).split("/").pop()+"chart";
+let getData = () => {
     let div = document.getElementById("data");
     let elements = div.querySelectorAll("input");
-    for (let i = 0; i < elements.length; i++) {
-        if (elements[i].value == "") return;
-        if (elements[i].value.includes(",")) {
-            values[elements[i].id] = elements[i].value.split(",");
-            for (let j = 0; j < values[elements[i].id].length; j++) {
-                if (!isNaN(parseInt(values[elements[i].id]))) {
-                values[elements[i].id][j] = parseInt(values[elements[i].id][j])
-            } else {
-                values[elements[i].id][j] = values[elements[i].id][j];
-            }
-            }
-            continue;
-        }
-        if (!isNaN(parseInt(elements[i].value))) {
-            values[elements[i].id] = parseInt(elements[i].value)
-        } else {
-            values[elements[i].id] = elements[i].value;
-        }
-    }
-    data.values = values;
+    return elements;
+}
+
+let createDiagram = async (data) => {
     let returnData = await fetch('http://localhost:3000/image', {
         method: "POST",
         body: JSON.stringify(data),
@@ -38,8 +19,10 @@ let check = async () => {
         }
     });
     returnData = await returnData.json()
-    let diagram = document.getElementById('diagram');
-    diagram.src = returnData.src;
+    return returnData;
+}
+
+let writeBuffer = async (returnData) => {
     let json = {
         "name": document.getElementById("title").value,
         "timestamp": new Date,
@@ -52,4 +35,35 @@ let check = async () => {
         },
         body: JSON.stringify(json)
     });
+}
+
+let check = async () => {
+    let values = {};
+    let data = {};
+    let elements = getData();
+    data.type = (window.location.toString()).split("/").pop() + "chart";
+    for (let i = 0; i < elements.length; i++) {
+        if (elements[i].value == "") return;
+        if (elements[i].value.includes(",")) {
+            values[elements[i].id] = elements[i].value.split(",");
+            for (let j = 0; j < values[elements[i].id].length; j++) {
+                if (!isNaN(parseInt(values[elements[i].id]))) {
+                    values[elements[i].id][j] = parseInt(values[elements[i].id][j])
+                } else {
+                    values[elements[i].id][j] = values[elements[i].id][j];
+                }
+            }
+            continue;
+        }
+        if (!isNaN(parseInt(elements[i].value))) {
+            values[elements[i].id] = parseInt(elements[i].value)
+        } else {
+            values[elements[i].id] = elements[i].value;
+        }
+    }
+    data.values = values;
+    let returnData = await createDiagram(data);
+    let diagram = document.getElementById('diagram');
+    diagram.src = returnData.src;
+    await writeBuffer(returnData);
 }
