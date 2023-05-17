@@ -86,5 +86,5 @@ app.post('/write', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+    console.log(`Server started on \x1b[1m\x1b[35mhttp://localhost:${port}\x1b[0m`);
 });
